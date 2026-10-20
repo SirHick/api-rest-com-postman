@@ -120,7 +120,15 @@ def incluir_novo_livro():
     livros.append(novo_livro)
     return jsonify(livros)
 
-
+#Deletar um livro
+@app.route("/remover_livro/<int:id>", methods = ["DELETE"])
+def remover_livro(id):
+    for indice, livro in enumerate(livros):
+        if livro.get("id") == id:
+            livros.pop(indice)
+            return jsonify(livros)
+    return jsonify({"Message": "Livro não encontrado ou já removido!"})
+        
 #Inicialização do supervisor local
 app.run(
     host = "localhost",
